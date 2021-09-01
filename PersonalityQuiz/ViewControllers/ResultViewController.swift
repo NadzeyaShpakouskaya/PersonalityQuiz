@@ -37,12 +37,19 @@ class ResultViewController: UIViewController {
                 countAnswerDictionary[answer.animal] = 1
             }
         }
-        
+        // sorting method
         let sortedAnswers = countAnswerDictionary.sorted { $0.1 > $1.1 }
-        
         guard let animal = sortedAnswers.first?.key else { return }
         popularAnimal = animal
-    }
+        
+ /*
+        // find most repeated value
+        let popularValue = countAnswerDictionary.values.max()
+        if let animal =  countAnswerDictionary.first(where: { $0.value == popularValue })?.key {
+            popularAnimal = animal
+        }
+ */
+  }
     
     private func updateUI() {
         defineMostPopularAnimal()
