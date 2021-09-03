@@ -28,28 +28,36 @@ class ResultViewController: UIViewController {
     
     // MARK: - Private methods
     private func defineMostPopularAnimal() {
-        var countAnswerDictionary: [Animal: Int] = [:]
+        let mostPopularAnimal = Dictionary(grouping: answers) { $0.animal}
+            .sorted { $0.value.count > $1.value.count}
+            .first?.key
         
-        for answer in answers {
-            if let counter = countAnswerDictionary[answer.animal] {
-                countAnswerDictionary[answer.animal] = counter + 1
-            } else {
-                countAnswerDictionary[answer.animal] = 1
-            }
-        }
-        // sorting method
-        let sortedAnswers = countAnswerDictionary.sorted { $0.1 > $1.1 }
-        guard let animal = sortedAnswers.first?.key else { return }
-        popularAnimal = animal
-        
- /*
-        // find most repeated value
-        let popularValue = countAnswerDictionary.values.max()
-        if let animal =  countAnswerDictionary.first(where: { $0.value == popularValue })?.key {
-            popularAnimal = animal
-        }
- */
-  }
+        popularAnimal = mostPopularAnimal ?? .dog
+ 
+        /*
+         var countAnswerDictionary: [Animal: Int] = [:]
+         
+         for answer in answers {
+         if let counter = countAnswerDictionary[answer.animal] {
+         countAnswerDictionary[answer.animal] = counter + 1
+         } else {
+         countAnswerDictionary[answer.animal] = 1
+         }
+         }
+         // sorting method
+         let sortedAnswers = countAnswerDictionary.sorted { $0.1 > $1.1 }
+         guard let animal = sortedAnswers.first?.key else { return }
+         popularAnimal = animal
+         
+         
+         
+         // find most repeated value
+         let popularValue = countAnswerDictionary.values.max()
+         if let animal =  countAnswerDictionary.first(where: { $0.value == popularValue })?.key {
+         popularAnimal = animal
+         }
+         */ // Step by step logic implementation of high ordered func
+    }
     
     private func updateUI() {
         defineMostPopularAnimal()
